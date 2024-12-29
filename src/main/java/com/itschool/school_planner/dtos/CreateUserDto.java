@@ -1,26 +1,29 @@
 package com.itschool.school_planner.dtos;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-
-@NoArgsConstructor
-@AllArgsConstructor
-public class CreateUserDto {
+public class CreateUserDto{
     private String username;
     private String password;
     private String email;
 
-    public String getEmail() {
-        return email;
+    public String getUsername() {
+        return username;
     }
 
-    public String getPassword(){
+    public String getPassword() {
         return password;
     }
 
-    public String getUsername() {
-        return username;
+    public String getEmail() {
+        return email;
+    }
+    
+    public CreateUserDto(){
+        
+    }
+    
+    public CreateUserDto(String username, String password, String email){
+        this.username = username;
+        this.password = password;
+        this.email = email;
     }
 }

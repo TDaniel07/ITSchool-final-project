@@ -4,7 +4,6 @@ import com.itschool.school_planner.dtos.CreateUserDto;
 import com.itschool.school_planner.models.User;
 import com.itschool.school_planner.repositories.UserRepository;
 import com.itschool.school_planner.services.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -26,6 +25,10 @@ public class UserServiceImpl implements UserService {
         if(userRepository.existsByUsername(userDto.getUsername()))
             throw new IllegalArgumentException("Username already exists");
 
+        User.validatePassword(userDto.getPassword());
+        User.validateEmail(userDto.getEmail());
+        User.validateUsername(userDto.getUsername());
+
         User user = User.builder()
                 .username(userDto.getUsername())
                 .email(userDto.getEmail())
@@ -36,5 +39,10 @@ public class UserServiceImpl implements UserService {
 
         userRepository.save(user);
         return user;
+    }
+
+    @Override
+    public User getUserByUsername(String username){
+        return userRepository.findByUsername(username).orElseThrow();
     }
 }

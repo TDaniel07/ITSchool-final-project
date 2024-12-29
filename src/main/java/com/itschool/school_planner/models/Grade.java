@@ -1,13 +1,10 @@
 package com.itschool.school_planner.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "grades")
-@NoArgsConstructor
-@AllArgsConstructor
 public class Grade {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,6 +15,32 @@ public class Grade {
 
     @ManyToOne
     @JoinColumn(name = "subject_id", nullable = false)
+    @JsonBackReference
     private Subject subject;
+
+    public Grade(){
+
+    }
+
+    public Grade(int value){
+        this.value = value;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
+    }
+
+    public void setSubject(Subject subject) {
+        this.subject = subject;
+    }
+
+    public int getValue() {
+        return value;
+    }
+
+    public Subject getSubject() {
+        return subject;
+    }
+
 
 }

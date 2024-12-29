@@ -1,10 +1,7 @@
 package com.itschool.school_planner.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -12,7 +9,6 @@ import java.util.List;
 
 @Entity
 @Table(name = "users")
-@Getter
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,6 +30,7 @@ public class User {
     private LocalDate registrationDate;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<Subject> subjects = new ArrayList<>();
 
     public User(){
@@ -41,10 +38,6 @@ public class User {
     }
 
     public User(String username, String password, String email, boolean active, LocalDate registrationDate){
-        validatePassword(password);
-        validateEmail(email);
-        validateUsername(username);
-
         this.username = username;
         this.password = password;
         this.email = email;
@@ -52,24 +45,47 @@ public class User {
         this.registrationDate = registrationDate;
     }
 
-    private void validatePassword(String password){
+    public String getPassword() {
+        return password;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public List<Subject> getSubjects() {
+        return subjects;
+    }
+
+    public LocalDate getRegistrationDate() {
+        return registrationDate;
+    }
+
+    public static void validatePassword(String password){
         if(password == null || password.length() < 8)
             throw new IllegalArgumentException("Invalid Password Entered");
     }
 
-    private void validateEmail(String email){
+    public static void validateEmail(String email){
         if(email == null || !email.matches("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}"))
             throw new IllegalArgumentException("Invalid email entered");
     }
 
-    private void validateUsername(String username){
+    public static void validateUsername(String username){
         if(username == null)
             throw new IllegalArgumentException("Username cannot be null");
 
         if(username.length() < 5 || username.length() > 15)
             throw new IllegalArgumentException("Username must be between 5 and 15 characters long");
     }
-
     public static class Builder{
         private String username;
         private String password;
