@@ -70,4 +70,14 @@ public class UserController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+    @DeleteMapping("/username/{username}")
+    public ResponseEntity<?> deleteUserByUsername(@PathVariable String username){
+        try{
+            userService.deleteUserByUsername(username);
+            return ResponseEntity.ok("User deleted");
+        }catch (NoSuchElementException e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
 }

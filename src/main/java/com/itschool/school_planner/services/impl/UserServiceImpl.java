@@ -4,9 +4,11 @@ import com.itschool.school_planner.dtos.CreateUserDto;
 import com.itschool.school_planner.models.User;
 import com.itschool.school_planner.repositories.UserRepository;
 import com.itschool.school_planner.services.UserService;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.NoSuchElementException;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -44,5 +46,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserByUsername(String username){
         return userRepository.findByUsername(username).orElseThrow();
+    }
+
+    @Override
+    @Transactional
+    public void deleteUserByUsername(String username){
+        if(!userRepository.existsByUsername(username))
+            throw new NoSuchElementException("User doesn't exist");
+
+        userRepository.deleteByUsername(username);
     }
 }
