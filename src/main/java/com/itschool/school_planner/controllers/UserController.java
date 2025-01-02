@@ -27,18 +27,7 @@ public class UserController {
         this.subjectService = subjectService;
         this.gradeService = gradeService;
     }
-
-    @PostMapping
-    public ResponseEntity<?> addUser(@RequestBody CreateUserDto userDto){
-        try {
-            User savedUser = userService.addUser(userDto);
-            return ResponseEntity.ok().body(savedUser);
-        }
-        catch (IllegalArgumentException e){
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
-    }
-
+    
     @GetMapping("/username/{username}")
     public ResponseEntity<?> getUserByUsername(@PathVariable String username){
         try {
@@ -67,6 +56,17 @@ public class UserController {
         }
         catch (NoSuchElementException e){
             return ResponseEntity.badRequest().body("User doesn't exist");
+        }
+        catch (IllegalArgumentException e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @PostMapping
+    public ResponseEntity<?> addUser(@RequestBody CreateUserDto userDto){
+        try {
+            User savedUser = userService.addUser(userDto);
+            return ResponseEntity.ok().body(savedUser);
         }
         catch (IllegalArgumentException e){
             return ResponseEntity.badRequest().body(e.getMessage());
