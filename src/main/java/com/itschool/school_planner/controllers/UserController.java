@@ -80,4 +80,26 @@ public class UserController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+    @DeleteMapping("/username/{username}/subjects/{subjectName}")
+    public ResponseEntity<?> deleteSubjectByUsername(@PathVariable String username, @PathVariable String subjectName){
+        try{
+            subjectService.deleteSubjectByUsername(username, subjectName);
+            return ResponseEntity.ok("Subject deleted");
+        }catch (NoSuchElementException e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @DeleteMapping("/grade/{gradeId}")
+    public ResponseEntity<?> deleteGrade(@PathVariable String gradeId){
+        try{
+            gradeService.deleteGrade(Long.parseLong(gradeId));
+            return ResponseEntity.ok("grade deleted");
+        }catch (NoSuchElementException e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+
 }

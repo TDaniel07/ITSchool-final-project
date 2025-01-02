@@ -5,8 +5,10 @@ import com.itschool.school_planner.models.Grade;
 import com.itschool.school_planner.models.Subject;
 import com.itschool.school_planner.models.User;
 import com.itschool.school_planner.repositories.GradeRepository;
+import com.itschool.school_planner.repositories.SubjectRepository;
 import com.itschool.school_planner.repositories.UserRepository;
 import com.itschool.school_planner.services.GradeService;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.NoSuchElementException;
@@ -33,5 +35,14 @@ public class GradeServiceImpl implements GradeService {
         userRepository.save(user);
 
         return grade;
+    }
+
+    @Override
+    @Transactional
+    public void deleteGrade(long gradeId){
+        if(!gradeRepository.existsById(gradeId))
+            throw new NoSuchElementException("Grade id doesn't exist");
+
+        gradeRepository.deleteById(gradeId);
     }
 }

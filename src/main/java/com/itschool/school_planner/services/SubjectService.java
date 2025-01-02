@@ -5,4 +5,5 @@ import com.itschool.school_planner.models.Subject;
 
 public interface SubjectService {
     public Subject addSubjectByUsername(String username, CreateSubjectDto subjectDto);
+    public void deleteSubjectByUsername(String username, String subjectName);
 }

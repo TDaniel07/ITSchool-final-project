@@ -5,4 +5,5 @@ import com.itschool.school_planner.models.Grade;
 
 public interface GradeService{
     public Grade addGradeByUsername(String username, String subjectName, CreateGradeDto gradeDto);
+    public void deleteGrade(long gradeId);
 }
