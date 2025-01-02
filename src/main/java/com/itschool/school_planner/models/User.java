@@ -29,7 +29,7 @@ public class User {
     @Column(nullable = false)
     private LocalDate registrationDate;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JsonManagedReference
     private List<Subject> subjects = new ArrayList<>();
 

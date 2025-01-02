@@ -1,6 +1,8 @@
 package com.itschool.school_planner.services.impl;
 
 import com.itschool.school_planner.dtos.CreateUserDto;
+import com.itschool.school_planner.models.Grade;
+import com.itschool.school_planner.models.Subject;
 import com.itschool.school_planner.models.User;
 import com.itschool.school_planner.repositories.UserRepository;
 import com.itschool.school_planner.services.UserService;
@@ -8,6 +10,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
@@ -46,6 +49,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserByUsername(String username){
         return userRepository.findByUsername(username).orElseThrow();
+    }
+
+    @Override
+    public List<Subject> getUserSubjectsByUsername(String username){
+        if(!userRepository.existsByUsername(username))
+            throw new NoSuchElementException("Username doesn't exist");
+
+        return userRepository.findSubjectsByUsername(username);
     }
 
     @Override

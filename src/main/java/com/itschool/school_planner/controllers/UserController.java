@@ -12,6 +12,7 @@ import com.itschool.school_planner.services.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @RestController
@@ -47,6 +48,17 @@ public class UserController {
             return ResponseEntity.badRequest().body("User not found");
         }
     }
+
+    @GetMapping("/username/{username}/subjects")
+    public ResponseEntity<?> getUserSubjectsByUsername(@PathVariable String username){
+        try {
+            List<Subject> subjects = userService.getUserSubjectsByUsername(username);
+            return ResponseEntity.ok().body(subjects);
+        }catch (NoSuchElementException e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
     @PostMapping("/username/{username}/subjects")
     public ResponseEntity<?> addSubjectByUsername(@PathVariable String username, @RequestBody CreateSubjectDto subjectDto){
         try{
