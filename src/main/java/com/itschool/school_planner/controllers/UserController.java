@@ -39,9 +39,9 @@ public class UserController {
     }
 
     @GetMapping("/id/{id}")
-    public ResponseEntity<?> getUserById(@PathVariable String id){
+    public ResponseEntity<?> getUserById(@PathVariable Long id){
         try{
-            User user = userService.getUserById(Long.parseLong(id));
+            User user = userService.getUserById(id);
             return ResponseEntity.ok().body(user);
         }catch (NoSuchElementException e){
             return ResponseEntity.badRequest().body("User not found");
@@ -114,9 +114,9 @@ public class UserController {
     }
 
     @DeleteMapping("/grade/{gradeId}")
-    public ResponseEntity<?> deleteGrade(@PathVariable String gradeId){
+    public ResponseEntity<?> deleteGrade(@PathVariable Long gradeId){
         try{
-            gradeService.deleteGrade(Long.parseLong(gradeId));
+            gradeService.deleteGrade(gradeId);
             return ResponseEntity.ok("grade deleted");
         }catch (NoSuchElementException e){
             return ResponseEntity.badRequest().body(e.getMessage());
