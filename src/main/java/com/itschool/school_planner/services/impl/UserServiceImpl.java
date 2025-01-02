@@ -52,6 +52,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User getUserById(long id){
+        return userRepository.findById(id).orElseThrow();
+    }
+
+    @Override
     public List<Subject> getUserSubjectsByUsername(String username){
         if(!userRepository.existsByUsername(username))
             throw new NoSuchElementException("Username doesn't exist");

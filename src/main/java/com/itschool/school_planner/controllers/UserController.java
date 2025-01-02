@@ -27,11 +27,21 @@ public class UserController {
         this.subjectService = subjectService;
         this.gradeService = gradeService;
     }
-    
+
     @GetMapping("/username/{username}")
     public ResponseEntity<?> getUserByUsername(@PathVariable String username){
         try {
             User user = userService.getUserByUsername(username);
+            return ResponseEntity.ok().body(user);
+        }catch (NoSuchElementException e){
+            return ResponseEntity.badRequest().body("User not found");
+        }
+    }
+
+    @GetMapping("/id/{id}")
+    public ResponseEntity<?> getUserById(@PathVariable String id){
+        try{
+            User user = userService.getUserById(Long.parseLong(id));
             return ResponseEntity.ok().body(user);
         }catch (NoSuchElementException e){
             return ResponseEntity.badRequest().body("User not found");

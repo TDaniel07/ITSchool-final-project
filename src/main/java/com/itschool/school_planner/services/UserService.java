@@ -10,6 +10,7 @@ import java.util.List;
 public interface UserService {
     public User addUser(CreateUserDto userDto);
     public User getUserByUsername(String username);
+    public User getUserById(long id);
     public void deleteUserByUsername(String username);
     public List<Subject> getUserSubjectsByUsername(String username);
 }
