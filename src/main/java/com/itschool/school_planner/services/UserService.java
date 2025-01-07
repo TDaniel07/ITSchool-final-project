@@ -12,5 +12,4 @@ public interface UserService {
     public User getUserByUsername(String username);
     public User getUserById(long id);
     public void deleteUserByUsername(String username);
-    public List<Subject> getUserSubjectsByUsername(String username);
 }

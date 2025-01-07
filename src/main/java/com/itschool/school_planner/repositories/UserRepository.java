@@ -14,6 +14,4 @@ public interface UserRepository extends JpaRepository<User, Long> {
     public Optional<User> findByUsername(String username);
     public boolean existsByUsernameAndSubjectsName(String username, String subjectName);
     public void deleteByUsername(String username);
-    @Query("SELECT u.subjects FROM User u WHERE u.username = :username")
-    public List<Subject> findSubjectsByUsername(String username);
 }

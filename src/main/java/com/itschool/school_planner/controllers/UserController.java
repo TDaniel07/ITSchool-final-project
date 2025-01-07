@@ -51,7 +51,7 @@ public class UserController {
     @GetMapping("/username/{username}/subjects")
     public ResponseEntity<?> getUserSubjectsByUsername(@PathVariable String username){
         try {
-            List<Subject> subjects = userService.getUserSubjectsByUsername(username);
+            List<Subject> subjects = subjectService.getSubjectsByUsername(username);
             return ResponseEntity.ok().body(subjects);
         }catch (NoSuchElementException e){
             return ResponseEntity.badRequest().body(e.getMessage());

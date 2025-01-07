@@ -57,14 +57,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<Subject> getUserSubjectsByUsername(String username){
-        if(!userRepository.existsByUsername(username))
-            throw new NoSuchElementException("Username doesn't exist");
-
-        return userRepository.findSubjectsByUsername(username);
-    }
-
-    @Override
     @Transactional
     public void deleteUserByUsername(String username){
         if(!userRepository.existsByUsername(username))

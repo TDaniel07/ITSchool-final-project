@@ -10,6 +10,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
@@ -20,6 +21,16 @@ public class SubjectServiceImpl implements SubjectService {
     public SubjectServiceImpl(UserRepository userRepository, SubjectRepository subjectRepository){
         this.userRepository = userRepository;
         this.subjectRepository = subjectRepository;
+    }
+
+    @Override
+    public List<Subject> getSubjectsByUsername(String username){
+        if(!userRepository.existsByUsername(username))
+            throw new NoSuchElementException("Username doesn't exist");
+
+        List<Subject> subjects = subjectRepository.findByUserUsername(username);
+
+        return subjects;
     }
 
     @Override
