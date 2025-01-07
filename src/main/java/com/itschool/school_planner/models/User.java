@@ -45,6 +45,10 @@ public class User {
         this.registrationDate = registrationDate;
     }
 
+    public long getId() {
+        return id;
+    }
+
     public String getPassword() {
         return password;
     }

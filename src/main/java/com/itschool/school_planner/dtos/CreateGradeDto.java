@@ -1,7 +1,7 @@
 package com.itschool.school_planner.dtos;
 
 public class CreateGradeDto {
-    int value;
+    private int value;
 
     public CreateGradeDto(){
 

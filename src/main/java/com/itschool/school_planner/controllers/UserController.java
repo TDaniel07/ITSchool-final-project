@@ -3,6 +3,7 @@ package com.itschool.school_planner.controllers;
 import com.itschool.school_planner.dtos.CreateGradeDto;
 import com.itschool.school_planner.dtos.CreateSubjectDto;
 import com.itschool.school_planner.dtos.CreateUserDto;
+import com.itschool.school_planner.dtos.GetUserDto;
 import com.itschool.school_planner.models.Grade;
 import com.itschool.school_planner.models.Subject;
 import com.itschool.school_planner.models.User;
@@ -28,11 +29,18 @@ public class UserController {
         this.gradeService = gradeService;
     }
 
+    @GetMapping
+    public ResponseEntity<?> getUsers(){
+        List<GetUserDto> getUserDtos = userService.getAllUsers();
+
+        return ResponseEntity.ok(getUserDtos);
+    }
+
     @GetMapping("/username/{username}")
     public ResponseEntity<?> getUserByUsername(@PathVariable String username){
         try {
-            User user = userService.getUserByUsername(username);
-            return ResponseEntity.ok().body(user);
+            GetUserDto getUserDto = userService.getUserByUsername(username);
+            return ResponseEntity.ok().body(getUserDto);
         }catch (NoSuchElementException e){
             return ResponseEntity.badRequest().body("User not found");
         }
@@ -51,8 +59,8 @@ public class UserController {
     @GetMapping("/id/{id}")
     public ResponseEntity<?> getUserById(@PathVariable Long id){
         try{
-            User user = userService.getUserById(id);
-            return ResponseEntity.ok().body(user);
+            GetUserDto getUserDto = userService.getUserById(id);
+            return ResponseEntity.ok().body(getUserDto);
         }catch (NoSuchElementException e){
             return ResponseEntity.badRequest().body("User not found");
         }
