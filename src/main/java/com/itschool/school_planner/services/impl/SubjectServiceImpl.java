@@ -8,6 +8,7 @@ import com.itschool.school_planner.repositories.UserRepository;
 import com.itschool.school_planner.services.SubjectService;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -57,5 +58,15 @@ public class SubjectServiceImpl implements SubjectService {
             throw new NoSuchElementException("Subject doesn't exist");
 
         subjectRepository.deleteByNameAndUserUsername(subjectName, username);
+    }
+
+    @Override
+    public List<Subject> getSubjectsById(long id){
+        if(!userRepository.existsById(id))
+            throw new NoSuchElementException("User id doesn't exist");
+
+        List<Subject> subjects = subjectRepository.findByUserId(id);
+
+        return subjects;
     }
 }

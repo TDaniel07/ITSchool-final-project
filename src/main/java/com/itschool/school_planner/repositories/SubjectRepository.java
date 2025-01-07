@@ -8,4 +8,5 @@ import java.util.List;
 public interface SubjectRepository extends JpaRepository<Subject, Long> {
     public void deleteByNameAndUserUsername(String name, String username);
     public List<Subject> findByUserUsername(String username);
+    public List<Subject> findByUserId(long id);
 }

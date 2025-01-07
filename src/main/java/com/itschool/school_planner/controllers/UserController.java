@@ -38,6 +38,16 @@ public class UserController {
         }
     }
 
+    @GetMapping("/username/{username}/subjects")
+    public ResponseEntity<?> getUserSubjectsByUsername(@PathVariable String username){
+        try {
+            List<Subject> subjects = subjectService.getSubjectsByUsername(username);
+            return ResponseEntity.ok().body(subjects);
+        }catch (NoSuchElementException e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
     @GetMapping("/id/{id}")
     public ResponseEntity<?> getUserById(@PathVariable Long id){
         try{
@@ -48,11 +58,12 @@ public class UserController {
         }
     }
 
-    @GetMapping("/username/{username}/subjects")
-    public ResponseEntity<?> getUserSubjectsByUsername(@PathVariable String username){
+    @GetMapping("/id/{id}/subjects")
+    public ResponseEntity<?> getUserSubjectsById(@PathVariable long id){
         try {
-            List<Subject> subjects = subjectService.getSubjectsByUsername(username);
-            return ResponseEntity.ok().body(subjects);
+            List<Subject> subjects = subjectService.getSubjectsById(id);
+
+            return ResponseEntity.ok(subjects);
         }catch (NoSuchElementException e){
             return ResponseEntity.badRequest().body(e.getMessage());
         }

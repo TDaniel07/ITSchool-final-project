@@ -9,4 +9,5 @@ public interface SubjectService {
     public Subject addSubjectByUsername(String username, CreateSubjectDto subjectDto);
     public void deleteSubjectByUsername(String username, String subjectName);
     public List<Subject> getSubjectsByUsername(String username);
+    public List<Subject> getSubjectsById(long id);
 }
