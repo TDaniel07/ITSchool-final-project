@@ -42,5 +42,7 @@ public class Grade {
         return subject;
     }
 
-
+    public void setId(long id) {
+        this.id = id;
+    }
 }
